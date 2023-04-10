@@ -33,28 +33,28 @@ class DataTransformation:
                 'diaBP', 'BMI', 'heartRate', 'glucose']
 
             categorical_columns = ['sex', 'is_smoking','BPMeds',
-               'prevalentStroke', 'prevalentHyp', 'diabetes','TenYearCHD']
+               'prevalentStroke', 'prevalentHyp', 'diabetes']
         
             
             num_pipeline = Pipeline(
                 steps = [
                 ('imputer', SimpleImputer(strategy='mean')),
-                ("scaler",StandardScaler())
+                ("scaler",StandardScaler(with_mean=False))
 
                 ]
             )
             cat_pipeline = Pipeline(
                 steps = [
                 ("imputer",SimpleImputer(strategy="most_frequent")),
-                ("one_hot_encoder",OneHotEncoder()),
-                ("scaler",StandardScaler())
+                ("one_hot_encoder",OneHotEncoder(handle_unknown='ignore')),
+                ("scaler",StandardScaler(with_mean=False))
                 ]
 
             )
 
-            logging.info("Numerical Columns standard scaling completed")
+            logging.info(f"Categorical Columns : {categorical_columns}")
 
-            logging.info("Categorical Columns encoding completed")
+            logging.info(f"Numerical Columns : {numerical_columns}")
             
             preprocessor = ColumnTransformer(
                 [
@@ -83,9 +83,12 @@ class DataTransformation:
             preprocessing_obj=self.get_data_transformer_object()
 
             target_column_name = 'TenYearCHD'
-            #numerical_columns = ['age','cigsPerDay','totChol', 'sysBP','diaBP', 'BMI', 'heartRate', 'glucose']
+            numerical_columns = ['age','cigsPerDay','totChol', 'sysBP','diaBP', 'BMI', 'heartRate', 'glucose']
+            categorical_columns = ['sex', 'is_smoking','BPMeds','prevalentStroke', 'prevalentHyp', 'diabetes','TenYearCHD']
 
             train_df = train_df.dropna()
+            test_df = test_df.dropna()
+            
             logging.info(f"Dropped missing values")
 
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
@@ -102,12 +105,17 @@ class DataTransformation:
             smote = SMOTE()
             input_feature_train_df, target_feature_train_df = smote.fit_resample(input_feature_train_df, 
                                                                                  target_feature_train_df)
+            input_feature_test_df, target_feature_test_df = smote.fit_resample(input_feature_test_df, 
+                                                                                 target_feature_test_df)
+            
+            logging.info(f"Smote applied successfully")
+
 
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
 
             train_arr = np.c_[
-                input_feature_train_arr, np.array(target_feature_train_df)
+                input_feature_train_arr,0,0, np.array(target_feature_train_df)
             ]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
