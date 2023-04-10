@@ -8,5 +8,6 @@ xgboost
 Flask
 missingno
 imbalanced-learn
+dill
 
 -e .
