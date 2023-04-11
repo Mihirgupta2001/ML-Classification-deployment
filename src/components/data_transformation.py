@@ -102,18 +102,18 @@ class DataTransformation:
             )
 
 
-            smote = SMOTE()
-            input_feature_train_df, target_feature_train_df = smote.fit_resample(input_feature_train_df, target_feature_train_df)
-            input_feature_test_df, target_feature_test_df = smote.fit_resample(input_feature_test_df, target_feature_test_df)
+            #smote = SMOTE()
+            #input_feature_train_df, target_feature_train_df = smote.fit_resample(input_feature_train_df, target_feature_train_df)
+            #input_feature_test_df, target_feature_test_df = smote.fit_resample(input_feature_test_df, target_feature_test_df)
             
-            logging.info(f"Smote applied successfully")
+            #logging.info(f"Smote applied successfully")
 
 
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
 
-            train_arr = np.r_[input_feature_train_arr, np.array(target_feature_train_df)]
-            test_arr = np.r_[input_feature_test_arr, np.array(target_feature_test_df)]
+            train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
+            test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
             logging.info(f"Saved preprocessing object.")
 
