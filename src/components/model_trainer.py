@@ -2,6 +2,7 @@ import os
 import sys
 from dataclasses import dataclass
 
+import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -37,8 +38,22 @@ class ModelTrainer:
                 "Logistic Regression":LogisticRegression()
             }
 
+            params = {
+                "Random Forest": {
+                  'n_estimators' : [100,200,500, 900, 1100]
+                },
+                "KNN" : {
+                  'n_neighbors' : [5,7,9,11,13,15,17,21],
+                  'weights' : ['uniform','distance'],
+                  'metric' : ['minkowski','euclidean','manhattan']
+                },
+                "Logistic Regression" : {
+                  "solver": ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga']
+                }
+                }
+
             model_report:dict=evaluate_models(X_train=X_train, Y_train=y_train,X_test=X_test,Y_test=y_test,
-                                              models=models)
+                                              models=models,param=params)
 
             ## To get best model score from dict
             best_model_score = max(sorted(model_report.values()))
