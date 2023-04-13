@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Values</title>
+</head>
+<body>
+    <form action="{{ url_for('predict_datapoint')}}" method="POST">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" required>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+
+        <label for="is_smoking">Smoking:</label>
+        <input type="radio" id="is_smoking_yes" name="is_smoking" value="1">
+        <label for="is_smoking_yes">Yes</label>
+        <input type="radio" id="is_smoking_no" name="is_smoking" value="0" checked>
+        <label for="is_smoking_no">No</label>
+
+        <label for="cigsPerDay">Cigarettes per day:</label>
+        <input type="number" id="cigsPerDay" name="cigsPerDay">
+
+        <label for="BPMeds">Blood Pressure Medication:</label>
+        <input type="radio" id="BPMeds_yes" name="BPMeds" value="1">
+        <label for="BPMeds_yes">Yes</label>
+        <input type="radio" id="BPMeds_no" name="BPMeds" value="0" checked>
+        <label for="BPMeds_no">No</label>
+
+        <label for="prevalentStroke">Prevalent Stroke:</label>
+        <input type="radio" id="prevalentStroke_yes" name="prevalentStroke" value="1">
+        <label for="prevalentStroke_yes">Yes</label>
+        <input type="radio" id="prevalentStroke_no" name="prevalentStroke" value="0" checked>
+        <label for="prevalentStroke_no">No</label>
+
+        <label for="prevalentHyp">Prevalent Hypertension:</label>
+        <input type="radio" id="prevalentHyp_yes" name="prevalentHyp" value="1">
+        <label for="prevalentHyp_yes">Yes</label>
+        <input type="radio" id="prevalentHyp_no" name="prevalentHyp" value="0" checked>
+        <label for="prevalentHyp_no">No</label>
+
+        <label for="diabetes">Diabetes:</label>
+        <input type="radio" id="diabetes_yes" name="diabetes" value="1">
+        <label for="diabetes_yes">Yes</label>
+        <input type="radio" id="diabetes_no" name="diabetes" value="0" checked>
+        <label for="diabetes_no">No</label>
+
+        <label for="totChol">Total Cholesterol (mg/dL):</label>
+        <input type="number" id="totChol" name="totChol">
+
+        <label for="sysBP">Systolic Blood Pressure (mmHg):</label>
+        <input type="number" id="sysBP" name="sysBP" required>
+
+        <label for="diaBP">Diastolic Blood Pressure (mmHg):</label>
+        <input type="number" id="diaBP" name="diaBP" required>
+
+        <label for="BMI">Body Mass Index (kg/m^2):</label>
+        <input type="number" id="BMI" name="BMI">
+    
+        <label for="heartRate">Heart Rate (beats/minute):</label>
+        <input type="number" id="heartRate" name="heartRate">
+    
+        <label for="glucose">Glucose (mg/dL):</label>
+        <input type="number" id="glucose" name="glucose">
+
+    
+        <button type="submit">Submit</button>
+    </form>
+        {{results}}
+</body>
+</html>
