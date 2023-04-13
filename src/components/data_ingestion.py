@@ -36,6 +36,9 @@ class DataIngestion:
 
             logging.info('Converting string to categorical variable')
 
+            df.drop(columns=['id','education'],inplace=True)
+
+            logging.info('Dropping unnecessary Columns')
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
 
