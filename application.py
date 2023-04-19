@@ -41,9 +41,9 @@ def predict_datapoint():
 
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(pred_df)
-        if results[0] == '1.0':
+        if results[0] == 1.0:
             return render_template('home.html',results = "You are at a Risk of Chronic heart diesease")
-        elif results[0] == '0.0':
+        elif results[0] == 0.0:
             return render_template('home.html',results = "Hooray!!! You are Fit and Fine")
         
     
