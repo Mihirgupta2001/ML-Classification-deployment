@@ -5,9 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import CustomData,PredictPipeline
 
-application=Flask(__name__)
-
-app=application
+application = app = Flask(__name__)
 
 ## Route for a home page
 
@@ -43,12 +41,13 @@ def predict_datapoint():
 
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(pred_df)
-        if results[0] == 1.0:
-            return render_template('home.html',results = "You are at a Risk of Chronic heart diesease")
-        elif results[0] == 0.0:
-            return render_template('home.html',results = "Hooray!!! You are Fit and Fine")
+        return render_template('home.html',results = results[0])
+        #if results[0] == '1.0':
+        #    return render_template('home.html',results = "You are at a Risk of Chronic heart diesease")
+        #elif results[0] == '0.0':
+        #    return render_template('home.html',results = "Hooray!!! You are Fit and Fine")
         
     
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug= True)
+    app.run(host='0.0.0.0')
