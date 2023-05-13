@@ -20,6 +20,7 @@ def save_object(file_path, obj):
             pickle.dump(obj, file_obj)
 
     except Exception as e:
+        print(e)
         raise CustomException(e, sys)
     
 
@@ -51,6 +52,7 @@ def evaluate_models(X_train, Y_train,X_test,Y_test,models,param):
         return report
 
     except Exception as e:
+        print(e)
         raise CustomException(e, sys)
     
 def load_object(file_path):
@@ -59,5 +61,6 @@ def load_object(file_path):
             return dill.load(file_obj)
         
     except Exception as e:
+        print(e)
         raise CustomException(e,sys)
 
